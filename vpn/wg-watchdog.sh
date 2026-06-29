@@ -10,13 +10,13 @@ TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 if ! ip link show "$WG_IFACE" &>/dev/null; then
     echo "[$TIMESTAMP] $WG_IFACE interface missing - starting..." >> "$LOG"
-    systemctl start wg-quick@wg0
+    systemctl start "wg-quick@${WG_IFACE}"
     exit 0
 fi
 
 if ! ping -c 3 -W 5 -I "$WG_IFACE" "$VPN_PEER" &>/dev/null; then
-    echo "[$TIMESTAMP] VPN unreachable - restarting wg-quick@$WG_IFACE..." >> "$LOG"
-    systemctl restart wg-quick@wg0
+    echo "[$TIMESTAMP] VPN unreachable - restarting wg-quick@${WG_IFACE}..." >> "$LOG"
+    systemctl restart "wg-quick@${WG_IFACE}"
     sleep 3
     if ping -c 2 -W 5 -I "$WG_IFACE" "$VPN_PEER" &>/dev/null; then
         echo "[$TIMESTAMP] VPN restored OK" >> "$LOG"
