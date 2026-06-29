@@ -12,31 +12,52 @@ A collection of Bash scripts for Linux system administration and maintenance.
 
 ### About
 
-Reusable shell scripts for common Linux administration tasks: system cleanup, monitoring, user management, backups, and more.
-
-All scripts are designed to be safe, idempotent where possible, and work on Debian/Ubuntu-based systems unless noted otherwise.
+Reusable shell scripts for common Linux administration tasks, organized by category. Tested on Debian/Ubuntu unless noted otherwise.
 
 ### Usage
 
 ```bash
-# Make executable
 chmod +x script-name.sh
-
-# Run
-./script-name.sh
+sudo ./script-name.sh
 ```
 
-Scripts that require root will tell you — run with `sudo` only when needed.
+Most scripts require root. Scripts with configurable parameters have variables at the top — edit them before running.
 
 ### Scripts
 
+#### firewall/
+
 | Script | Description |
 |--------|-------------|
+| `ufw-basic.sh` | Basic UFW setup: deny all incoming, allow SSH, enable firewall |
+| `ufw-ftps.sh` | UFW rules for an FTPS server (SSH + FTP control + passive port range) |
+
+#### security/
+
+| Script | Description |
+|--------|-------------|
+| `ssh-hardening.sh` | Disable password auth and root login, enforce key-only SSH access |
+| `fail2ban-ssh.sh` | fail2ban jail for SSH: ban IPs after repeated failed login attempts |
+| `fail2ban-vsftpd.sh` | fail2ban jail for vsftpd FTP server |
+
+#### vpn/
+
+| Script | Description |
+|--------|-------------|
+| `wg-watchdog.sh` | WireGuard watchdog: auto-restart `wg0` if VPN peer becomes unreachable |
+
+#### storage/
+
+| Script | Description |
+|--------|-------------|
+| `ftp-rotate.sh` | Delete FTP files older than N days, remove empty directories — run via cron |
+| `vsftpd-add-user.sh` | Add a virtual user to vsftpd with an auto-generated password |
 
 ### Requirements
 
 - Bash 4.0+
-- Debian / Ubuntu (most scripts), noted otherwise
+- Debian / Ubuntu (most scripts)
+- Root access
 
 ---
 
@@ -44,28 +65,49 @@ Scripts that require root will tell you — run with `sudo` only when needed.
 
 ### Про проєкт
 
-Збірник bash-скриптів для адміністрування та обслуговування Linux-систем: очищення, моніторинг, керування користувачами, резервне копіювання тощо.
-
-Скрипти розраховані на Debian/Ubuntu, якщо не зазначено інше.
+Збірник bash-скриптів для адміністрування та обслуговування Linux-систем, організований за категоріями. Перевірено на Debian/Ubuntu якщо не зазначено інше.
 
 ### Використання
 
 ```bash
-# Зробити виконуваним
 chmod +x script-name.sh
-
-# Запустити
-./script-name.sh
+sudo ./script-name.sh
 ```
 
-Скрипти, що потребують root, повідомлять про це — запускайте з `sudo` лише коли потрібно.
+Більшість скриптів потребують root. Скрипти з параметрами мають змінні на початку файлу — відредагуйте їх перед запуском.
 
 ### Скрипти
 
+#### firewall/
+
 | Скрипт | Призначення |
 |--------|-------------|
+| `ufw-basic.sh` | Базовий UFW: заборонити весь вхідний трафік, дозволити SSH, увімкнути |
+| `ufw-ftps.sh` | UFW для FTPS-сервера (SSH + FTP контрольний канал + пасивний діапазон портів) |
+
+#### security/
+
+| Скрипт | Призначення |
+|--------|-------------|
+| `ssh-hardening.sh` | Вимкнути авторизацію за паролем і вхід root, тільки ключ |
+| `fail2ban-ssh.sh` | fail2ban для SSH: бан IP після невдалих спроб входу |
+| `fail2ban-vsftpd.sh` | fail2ban для FTP-сервера vsftpd |
+
+#### vpn/
+
+| Скрипт | Призначення |
+|--------|-------------|
+| `wg-watchdog.sh` | Watchdog WireGuard: автоматичний перезапуск `wg0` якщо VPN недоступний |
+
+#### storage/
+
+| Скрипт | Призначення |
+|--------|-------------|
+| `ftp-rotate.sh` | Видалення FTP-файлів старших за N днів і порожніх директорій — запуск через cron |
+| `vsftpd-add-user.sh` | Додавання virtual-користувача у vsftpd з автогенерацією пароля |
 
 ### Вимоги
 
 - Bash 4.0+
-- Debian / Ubuntu (більшість скриптів), інше зазначається окремо
+- Debian / Ubuntu (більшість скриптів)
+- Root-доступ
