@@ -61,8 +61,17 @@ Most scripts require root. Scripts with configurable parameters have variables a
 | `zabbix-speedtest-collect.sh` | Collects ping/download/upload via iperf3, writes XML result to /tmp |
 | `zabbix-speedtest-read.sh` | Returns cached speedtest XML to Zabbix; safe to call while collect is running |
 | `speedtest-lan.sh` | Standalone LAN speedtest (iperf3): configurable targets, CLI flags, Zabbix LLD support |
+| `grafana-update.sh` | Update Grafana OSS to the latest release by downloading the .deb from dl.grafana.com |
 
 > Zabbix scripts work together: `collect` runs the test and saves to cache, `read` returns cached data to Zabbix on demand (avoids timeout). Configure `HOST_LIST` path and iperf3 target IPs.
+
+#### maintenance/
+
+| Script | Description |
+|--------|-------------|
+| `nextcloud-update.sh` | Enable maintenance mode, update all apps and system packages, run built-in updater |
+| `nextcloud-post-upgrade.sh` | Post-upgrade DB repair: missing indices, bigint conversion, mimetype update, service restart |
+| `mysql-fix-row-format.sh` | Convert all tables in a MySQL/MariaDB database to ROW_FORMAT=DYNAMIC |
 
 ### Requirements
 
@@ -71,6 +80,8 @@ Most scripts require root. Scripts with configurable parameters have variables a
 - Root access
 - `iperf3` — for monitoring scripts
 - `fail2ban` — for fail2ban scripts
+- `curl` — for `grafana-update.sh`
+- `mysql-client` — for `mysql-fix-row-format.sh`
 
 ---
 
@@ -127,6 +138,15 @@ sudo ./script-name.sh
 | `zabbix-speedtest-collect.sh` | Збирає ping/download/upload через iperf3, зберігає XML у /tmp |
 | `zabbix-speedtest-read.sh` | Повертає кешований результат Zabbix; безпечний під час роботи collect |
 | `speedtest-lan.sh` | Standalone LAN speedtest (iperf3): CLI-прапорці, підтримка Zabbix LLD |
+| `grafana-update.sh` | Оновлення Grafana OSS до останньої версії через завантаження .deb з dl.grafana.com |
+
+#### maintenance/
+
+| Скрипт | Призначення |
+|--------|-------------|
+| `nextcloud-update.sh` | Оновлення Nextcloud: maintenance mode, оновлення додатків і системи, запуск updater |
+| `nextcloud-post-upgrade.sh` | Обслуговування після апгрейду: індекси БД, bigint, mimetypes, перезапуск сервісів |
+| `mysql-fix-row-format.sh` | Конвертація всіх таблиць MySQL/MariaDB у ROW_FORMAT=DYNAMIC |
 
 ### Вимоги
 
@@ -135,3 +155,5 @@ sudo ./script-name.sh
 - Root-доступ
 - `iperf3` — для скриптів monitoring/
 - `fail2ban` — для скриптів fail2ban
+- `curl` — для `grafana-update.sh`
+- `mysql-client` — для `mysql-fix-row-format.sh`
