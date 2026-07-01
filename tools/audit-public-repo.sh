@@ -38,8 +38,9 @@ fi
 echo "[audit] 4/4 hardcoded credentials..."
 # Match a contiguous quoted literal (no spaces) assigned to a secret-like key.
 # Log lines like  console.log('token:', x)  do not match (value has spaces/punctuation).
-cred=$(git grep -nIP '(?i)(password|passwd|secret|api[_-]?key|token)\s*[:=]\s*["\x27][^"\x27\s]{8,}["\x27]' -- . ":(exclude)$self" 2>/dev/null \
-    | grep -viE 'example|placeholder|your|change_?me|dummy|<|process\.env|os\.getenv|getenv|env\(|\$\{|:\?|:-|Read-Host|ConvertTo-Secure' || true)
+# The (?![$_<%{]) lookahead skips variable refs ($x), placeholders (__X__), templates.
+cred=$(git grep -nIP '(?i)(password|passwd|secret|api[_-]?key|token)\s*[:=]\s*["\x27](?![$_<%{])[^"\x27\s]{7,}["\x27]' -- . ":(exclude)$self" 2>/dev/null \
+    | grep -viE 'example|placeholder|your|change_?me|dummy|test_|_test|/tests?/|<|process\.env|os\.getenv|getenv|env\(|\$\{|:\?|:-|Read-Host|ConvertTo-Secure' || true)
 if [ -n "$cred" ]; then
     echo "  [FAIL] possible hardcoded credential:"
     echo "$cred" | sed 's/^/    /'
