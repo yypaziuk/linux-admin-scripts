@@ -65,6 +65,7 @@ Most scripts require root. Scripts with configurable parameters have variables a
 | `grafana-update.sh` | Update Grafana OSS to the latest release by downloading the .deb from dl.grafana.com |
 | `check-services.sh` | Check the active status of a configurable list of systemd services |
 | `zabbix-precheck.sh` | Pre-upgrade checks: Ubuntu/Zabbix/MySQL versions, disk space, repo reachability |
+| `zabbix-agent2-install.sh` | Install Zabbix Agent 2 (+ plugins) from local .deb files, then set server IP and hostname |
 | `zabbix-export-hosts.py` | Export Zabbix hosts, IPs, and tags to Excel via the Zabbix API (env-var credentials) |
 | `zabbix-dell-md-runner.sh` | Dell MD Storage: run SMcli to collect storageArray data (feeds get/discovery scripts) |
 | `zabbix-dell-md-stat-runner.sh` | Dell MD Storage: run SMcli to collect performance stats (feeds stat-get script) |
@@ -83,6 +84,8 @@ Most scripts require root. Scripts with configurable parameters have variables a
 | `mysql-fix-row-format.sh` | Convert all tables in a MySQL/MariaDB database to ROW_FORMAT=DYNAMIC |
 | `zabbix-proxy-update.sh` | Upgrade Zabbix Proxy (MySQL) to a new major version: backup, replace repo, apply DB schema |
 | `zabbix-server-update.sh` | Upgrade Zabbix Server + PHP 7.4→8.0: backup, replace repo, upgrade packages, apply schema |
+| `apt-update-temp-ip.sh` | Temporarily switch to a maintenance IP, run apt update/upgrade, restore config, reboot |
+| `vmware-log-cleanup.sh` | Delete VMware (ESXi/vCenter) log files older than N days — schedule via cron |
 
 ### Requirements
 
@@ -156,6 +159,7 @@ sudo ./script-name.sh
 | `grafana-update.sh` | Оновлення Grafana OSS до останньої версії через завантаження .deb з dl.grafana.com |
 | `check-services.sh` | Перевірка активності списку systemd-сервісів |
 | `zabbix-precheck.sh` | Перевірки перед оновленням: версії Ubuntu/Zabbix/MySQL, місце на диску, репозиторій |
+| `zabbix-agent2-install.sh` | Встановлення Zabbix Agent 2 (+ плагіни) з локальних .deb, налаштування IP сервера і hostname |
 | `zabbix-export-hosts.py` | Експорт хостів Zabbix, IP і тегів в Excel через Zabbix API |
 | `zabbix-dell-md-runner.sh` | Dell MD Storage: запуск SMcli для збору storageArray (підготовка для get/discovery) |
 | `zabbix-dell-md-stat-runner.sh` | Dell MD Storage: запуск SMcli для збору performance stats |
@@ -172,6 +176,8 @@ sudo ./script-name.sh
 | `mysql-fix-row-format.sh` | Конвертація всіх таблиць MySQL/MariaDB у ROW_FORMAT=DYNAMIC |
 | `zabbix-proxy-update.sh` | Апгрейд Zabbix Proxy (MySQL): бекап, новий репо, оновлення пакету, схема БД |
 | `zabbix-server-update.sh` | Апгрейд Zabbix Server + PHP 7.4→8.0: бекап, репо, пакети, схема БД |
+| `apt-update-temp-ip.sh` | Тимчасова зміна на maintenance-IP, apt update/upgrade, відновлення конфігу, перезавантаження |
+| `vmware-log-cleanup.sh` | Видалення логів VMware (ESXi/vCenter) старших за N днів — запуск через cron |
 
 ### Вимоги
 
